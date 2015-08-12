@@ -130,7 +130,6 @@ export function loadRepos(userId) {
       return; // bail out here if the middleware cancelled the dispatch
     }
 
-    const end = { url, done: true };
     fetch(url)
       .then(response => dispatch({
         type: 'LOAD_REPOS',
@@ -140,7 +139,7 @@ export function loadRepos(userId) {
         },
         meta: {
           // Add metadata to the action
-          httpRequest: end
+          httpRequest: { url, done: true }
         }
       }))
       .catch(error => dispatch({
@@ -152,7 +151,7 @@ export function loadRepos(userId) {
         },
         meta: {
           // Add metadata to the action
-          httpRequest: end
+          httpRequest: { url, done: true }
         }
       })
     );
