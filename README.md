@@ -162,7 +162,7 @@ export function loadRepos(userId) {
   }
 }
 
-// Add new requests store and middleware
+// Add additional store and middleware
 import { requestsReducer, createRequestMiddleware } from 'redux-requests';
 const createStoreWithMiddleware = applyMiddleware(thunkMiddleware, createRequestMiddleware())(createStore);
 let store = createStoreWithMiddleware(combineReducers({ requestsReducer, githubRepos }));
