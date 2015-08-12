@@ -1,0 +1,33 @@
+{
+  "name": "redux-requests",
+  "version": "0.1.0",
+  "description": "TODO",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/idolize/redux-requests.git"
+  },
+  "keywords": [
+    "redux",
+    "react",
+    "flux",
+    "http",
+    "request",
+    "requests",
+    "pending",
+    "flight"
+  ],
+  "author": "David Idol",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/idolize/redux-requests/issues"
+  },
+  "homepage": "https://github.com/idolize/redux-requests#readme",
+  "scripts": {
+    "prepublish": "babel index.js --out-dir lib"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "babel": "^5.8.21"
+  }
+}
