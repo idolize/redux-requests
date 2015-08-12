@@ -3,7 +3,7 @@ redux-requests [![Version][npm-image]][npm-url]
 
 Manages in-flight requests with a [Redux](https://github.com/gaearon/redux) [reducer](https://gaearon.github.io/redux/docs/basics/Reducers.html) - avoid issuing duplicate requests without any special logic!
 
-[Live Example](#)
+[Live Example!](#)
 
 ## Avoiding the issue of multiple requests
 
