@@ -123,7 +123,7 @@ export function loadRepos(userId) {
         userId
       },
       meta: {
-        // Add the metadata to the action for the middleware to check
+        // Add metadata to the action
         httpRequest: { url, done: false }
       }
     })) {
@@ -142,7 +142,7 @@ export function loadRepos(userId) {
           response
         },
         meta: {
-          // Add the metadata to the action for the middleware to check
+          // Add metadata to the action
           httpRequest: end
         }
       }))
@@ -154,7 +154,7 @@ export function loadRepos(userId) {
           error
         },
         meta: {
-          // Add the metadata to the action for the middleware to check
+          // Add metadata to the action
           httpRequest: end
         }
       })
