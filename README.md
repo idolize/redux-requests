@@ -7,9 +7,9 @@ Manages in-flight requests with a [Redux](https://github.com/gaearon/redux) [red
 
 ## Avoiding the issue of multiple requests
 
-Say your application has two views for the same set of data, and this data has not yet been fetched. A naive approach would be to create an [Action Creator](https://gaearon.github.io/redux/docs/basics/Actions.html) which fetches the data from an HTTP API endpoint, and then have both of these views trigger this action as soon as they are rendered (`componentWillMount` in React terms).
+Say your application has two views for the same set of data, and this data has not yet been fetched. A naïve approach would be to create an [Action Creator](https://gaearon.github.io/redux/docs/basics/Actions.html) which fetches the data from an HTTP API endpoint, and then have both of these views trigger this action as soon as they are rendered (`componentWillMount` in React terms).
 
-The problem with this approach is that you end up with two identical HTTP requests to fetch the same data when you only need one! You waste bandwidth doing this, and you may also waste render cycles as the [Store](https://gaearon.github.io/redux/docs/basics/Store.html) updates twice as a result of handling both (identical) response (aka "completed") Actions.
+The problem with this approach is that **you end up with two identical HTTP requests when you only need one**! You waste bandwidth doing this, and you may also waste render cycles as the [Store](https://gaearon.github.io/redux/docs/basics/Store.html) updates twice as a result of handling both identical responses.
 
 ### How can we fix this?
 
