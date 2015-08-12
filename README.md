@@ -132,9 +132,6 @@ export function loadRepos(userId) {
 
     const end = { url, done: true };
     fetch(url)
-      .then(checkStatus)
-      .then(parseJSON)
-      .then(addDelay(5000))
       .then(response => dispatch({
         type: 'LOAD_REPOS',
         payload: {
