@@ -30,7 +30,7 @@ The only changes you should have to make to your code are:
   - `meta.httpRequest.url` is required, and will be used as the unique identifier for the request
   - `meta.httpRequest.done` is a boolean indiecating if this action corresponds to a beginning or ending part of the request sequence
     - Typically a successful response Action, in addition to a failed response Action with an error, will both have `meta.httpRequest.done = true`
-2. Check if the `dispatch` for your initial request Action was cancelled (`dispatch` will return `undefined`), and if so do not issue your request
+2. Check if the `dispatch` for your initial request Action was cancelled (`dispatch` will return `undefined`), and if so do not issue your request (Note: this will likely be unnecessary in a future version)
 3. Register the `createRequestMiddleware` middleware and the `requestsReducer` reducer as part of your Redux configuration.
 
 #### Original, naïve code (without redux-requests library):
@@ -158,7 +158,7 @@ export function loadRepos(userId) {
   }
 }
 
-// Add additional store and middleware
+// Add additional reducer and middleware
 import { requestsReducer, createRequestMiddleware } from 'redux-requests';
 const createStoreWithMiddleware = applyMiddleware(thunkMiddleware, createRequestMiddleware())(createStore);
 let store = createStoreWithMiddleware(combineReducers({ requestsReducer, githubRepos }));
