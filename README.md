@@ -33,7 +33,7 @@ The only changes you should have to make to your code are:
 2. Check if the `dispatch` for your initial request Action was cancelled (`dispatch` will return `undefined`), and if so do not issue your request
 3. Register the `createRequestMiddleware` middleware and the `requestsReducer` reducer as part of your Redux configuration.
 
-#### Original code:
+#### Original, naïve code (without redux-requests library):
 
 ```js
 // React component
@@ -107,7 +107,7 @@ const createStoreWithMiddleware = applyMiddleware(thunkMiddleware)(createStore);
 let store = createStoreWithMiddleware(combineReducers({ githubRepos }));
 ```
 
-#### New code:
+#### New code (using redux-requests to manage pending requests):
 
 ```js
 // React component stays exactly the same!
