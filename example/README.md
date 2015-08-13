@@ -3,6 +3,8 @@ Example
 
 Simple example to fetch data from GitHub.
 
+[Try it here!](https://idolize.github.io/redux-requests)
+
 > Click to load data for a user, and watch the network requests in your browser dev tools:
 > no new requests will be made for the same URL while there is already a request for that URL in flight
 > (the request is delayed by 5 seconds to better illustrate the point)
