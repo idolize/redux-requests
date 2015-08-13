@@ -15,9 +15,9 @@ The problem with this approach is that **you end up with two identical HTTP requ
 
 You could wrap all your calls to fetch the data with `if` statements, and keep track of that state somewhere, but who wants to do that by hand?
 
-### Enter redux-requests
+### Enter: redux-requests
 
-This library will not only keep track of all pending requests for you, but also provide a convenient [middleware](https://gaearon.github.io/redux/docs/api/applyMiddleware.html) function that will avoid dispatching Actions to request data if there is already a pending HTTP request in flight!
+This library will not only keep track of all pending requests for you, but also provide a convenient [middleware](https://gaearon.github.io/redux/docs/api/applyMiddleware.html) function that will avoid dispatching Actions to request data if there is already a pending HTTP request for this data in flight!
 
 As a result, you can use the *very same naive approach outlined earlier with hardly any code changes* and it will "just work"! Keep your views stateless and your Reducers ignorant of the notion of "pending requests"!
 
