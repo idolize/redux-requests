@@ -1,0 +1,38 @@
+{
+  "name": "redux-requests-example",
+  "private": true,
+  "version": "0.0.0",
+  "description": "redux requests example",
+  "main": "index.js",
+  "scripts": {
+    "start": "watchify --extension=js -o bundle.js index.js & python -m SimpleHTTPServer"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/idolize/redux-requests.git"
+  },
+  "author": "David Idol",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/idolize/redux-requests/issues"
+  },
+  "browserify": {
+    "transform": [
+      "babelify"
+    ]
+  },
+  "homepage": "https://github.com/idolize/redux-requests/example/#readme",
+  "dependencies": {
+    "es6-promise": "^2.3.0",
+    "react": "^0.13.3",
+    "react-redux": "^0.5.0",
+    "redux": "^1.0.0-rc",
+    "redux-thunk": "^0.1.0",
+    "whatwg-fetch": "^0.9.0"
+  },
+  "devDependencies": {
+    "browserify": "~10.2.4",
+    "babelify": "~6.1.2",
+    "watchify": "^3.3.1"
+  }
+}
