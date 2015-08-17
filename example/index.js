@@ -37,46 +37,32 @@ function loadRepos(userId) {
   return function (dispatch, getState) {
     const url = `https://api.github.com/users/${userId}/repos`;
 
-    if (!dispatch({
-      type: 'LOAD_REPOS',
-      payload: {
-        userId
-      },
-      meta: {
-        httpRequest: { url, done: false }
-      }
-    })) {
-      console.info(`Request to ${url} ignored because there is already one in flight`);
-      return; // bail out here if the middleware cancelled the dispatch
-    }
-
-    const end = { url, done: true };
-    fetch(url)
-      .then(checkStatus)
-      .then(parseJSON)
-      .then(addDelay(5000))
-      .then(response => dispatch({
+    attemptRequest(url, {
+      begin: () => ({
+        type: 'LOAD_REPOS',
+        payload: {
+          userId
+        }
+      }),
+      success: response => ({
         type: 'LOAD_REPOS',
         payload: {
           userId,
           response
-        },
-        meta: {
-          httpRequest: end
         }
-      }))
-      .catch(error => dispatch({
+      }),
+      failure: error => ({
         type: 'LOAD_REPOS',
-        error: true,
+        error,
         payload: {
-          userId,
-          error
-        },
-        meta: {
-          httpRequest: end
+          userId
         }
       })
-    );
+    }, () => fetch(url)
+      .then(checkStatus)
+      .then(parseJSON)
+      .then(addDelay(5000))
+    , dispatch);
   }
 }
 
