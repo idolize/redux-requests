@@ -25,12 +25,13 @@ As a result, you can use the *very same naïve approach outlined earlier with ha
 
 ## Simple example
 
-Provide the function that returns a `Promise`, Action objects to dispatch depending on the outcome of the request, and register the `createRequestMiddleware` middleware and the `requestsReducer` reducer as part of your Redux configuration.
+For each request: just specify a function that makes the request (should return a `Promise`), Action objects to dispatch depending on the outcome of the request, and register the `createRequestMiddleware` middleware and the `requestsReducer` reducer as part of your Redux configuration.
 
 ```js
 import { attemptRequest, requestsReducer, createRequestMiddleware } from 'redux-requests';
 // Attempt to make a request if there isn't one for this URL already
 function loadRepos(userId) {
+  // Using redux-thunk middleware here, but other options should work as well
   return function (dispatch, getState) {
     const url = `https://api.github.com/users/${userId}/repos`;
 
@@ -68,7 +69,7 @@ let store = createStoreWithMiddleware(combineReducers({ requestsReducer, githubR
 
 ## What's going on: before and after
 
-The `attemptRequest` helper is actually very simple (and completely optional). All it does is the following:
+The `attemptRequest` function is actually just a simple helper (and is completely optional). All it does is the following:
 
 1. Add `meta.httpRequest` fields to your Action objects
   - `meta.httpRequest.url` is required, and will be used as the unique identifier for the request
