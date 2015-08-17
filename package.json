@@ -1,6 +1,6 @@
 {
   "name": "redux-requests",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Manages in-flight requests with a Redux reducer - avoid issuing duplicate requests without any special logic!",
   "main": "index.js",
   "repository": {
