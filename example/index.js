@@ -3,7 +3,7 @@ import { combineReducers, createStore, applyMiddleware } from 'redux';
 import thunkMiddleware from 'redux-thunk';
 import { Provider, connect } from 'react-redux';
 import { polyfill as promisePolyfill } from 'es6-promise';
-import { requestsReducer, createRequestMiddleware } from '../index';
+import { requestsReducer, createRequestMiddleware, attemptRequest } from '../index';
 import 'whatwg-fetch';
 promisePolyfill();
 
