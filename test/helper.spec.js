@@ -70,7 +70,7 @@ describe('attemptRequest helper function', () => {
     });
   });
 
-  it.only('should dispatch failure action returned by functions when Promise throws', () => {
+  it('should dispatch failure action returned by functions when Promise throws', () => {
     const actions = {
       begin: () => ({
         type: 'TEST_ACTION'
@@ -89,19 +89,21 @@ describe('attemptRequest helper function', () => {
     const error = new Error('error');
     const promise = new Promise((resolve, reject) => reject(error));
     attemptRequest('testUrl', actions, () => promise, action => dispatched.push(action));
-    return promise.catch(response => {
-      console.log(dispatched[0]);
-      expect(dispatched).to.deep.equal([
-        {
-          type: 'TEST_ACTION',
-          meta: { httpRequest: { url: 'testUrl', done: false } }
-        },
-        {
-          type: 'TEST_ACTION',
-          error: error,
-          meta: { httpRequest: { url: 'testUrl', done: true } }
-        }
-      ]);
+    return new Promise(resolve => {
+      setTimeout(() => {
+        expect(dispatched).to.deep.equal([
+          {
+            type: 'TEST_ACTION',
+            meta: { httpRequest: { url: 'testUrl', done: false } }
+          },
+          {
+            type: 'TEST_ACTION',
+            error: error,
+            meta: { httpRequest: { url: 'testUrl', done: true } }
+          }
+        ]);
+        resolve();
+      }, 15);
     });
   });
 });

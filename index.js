@@ -67,11 +67,9 @@ export function attemptRequest(url, actions, makeRequest, dispatch) {
     successAction.meta.httpRequest = { url, done: true };
     dispatch(successAction);
   }).catch(err => {
-    console.warn('doing something');
     const failureAction = { ...actions.failure(err) };
     failureAction.meta = failureAction.meta || {};
     failureAction.meta.httpRequest = { url, done: true };
-    console.warn('calling dispatch');
     dispatch(failureAction);
   });
 }
