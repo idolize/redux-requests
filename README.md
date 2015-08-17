@@ -3,6 +3,8 @@ redux-requests [![Version][npm-image]][npm-url]
 
 Manages in-flight requests with a [Redux](https://github.com/gaearon/redux) [reducer](https://gaearon.github.io/redux/docs/basics/Reducers.html) - avoid issuing duplicate requests without any special logic!
 
+`npm install --save redux-requests`
+
 [Live Example!](https://idolize.github.io/redux-requests)
 
 ## Avoiding the issue of multiple requests
@@ -21,17 +23,58 @@ This library will not only keep track of all pending requests for you, but also 
 
 As a result, you can use the *very same naïve approach outlined earlier with hardly any code changes* and it will "just work"! Keep your views stateless and your Reducers ignorant of the notion of "pending requests"!
 
+## Simple example
 
-## Before and after
+Provide the function that returns a `Promise`, Action objects to dispatch depending on the outcome of the request, and register the `createRequestMiddleware` middleware and the `requestsReducer` reducer as part of your Redux configuration.
 
-The only changes you should have to make to your code are:
+```js
+import { attemptRequest, requestsReducer, createRequestMiddleware } from 'redux-requests';
+// Attempt to make a request if there isn't one for this URL already
+function loadRepos(userId) {
+  return function (dispatch, getState) {
+    const url = `https://api.github.com/users/${userId}/repos`;
+
+    attemptRequest(url, {
+      begin: () => {
+        type: 'LOAD_REPOS',
+        payload: {
+          userId
+        }
+      },
+      success: response => {
+        type: 'LOAD_REPOS',
+        payload: {
+          userId,
+          response
+        }
+      },
+      failure: error => {
+        type: 'LOAD_REPOS',
+        error,
+        payload: {
+          userId
+        }
+      }
+    }, () => fetch(url)
+      .then(checkStatus)
+      .then(parseJSON)
+    , dispatch);
+  }
+}
+// Add additional reducer and middleware
+const createStoreWithMiddleware = applyMiddleware(thunkMiddleware, createRequestMiddleware())(createStore);
+let store = createStoreWithMiddleware(combineReducers({ requestsReducer, githubRepos }));
+```
+
+## What's going on: before and after
+
+The `attemptRequest` helper is actually very simple (and completely optional). All it does is the following:
 
 1. Add `meta.httpRequest` fields to your Action objects
   - `meta.httpRequest.url` is required, and will be used as the unique identifier for the request
   - `meta.httpRequest.done` is a boolean indiecating if this action corresponds to a beginning or ending part of the request sequence
     - Typically a successful response Action, in addition to a failed response Action with an error, will both have `meta.httpRequest.done = true`
-2. Check if the `dispatch` for your initial request Action was cancelled (`dispatch` will return `undefined`), and if so do not issue your request (Note: this will likely be unnecessary in a future version)
-3. Register the `createRequestMiddleware` middleware and the `requestsReducer` reducer as part of your Redux configuration.
+2. Check if the `dispatch` for your initial request Action was cancelled (`dispatch` will return `undefined`), and if so do not issue your request
 
 #### Original, naïve code (without redux-requests library):
 

@@ -1,6 +1,6 @@
 {
   "name": "redux-requests",
-  "version": "0.1.1",
+  "version": "1.0.0",
   "description": "Manages in-flight requests with a Redux reducer - avoid issuing duplicate requests without any special logic!",
   "main": "index.js",
   "repository": {
@@ -24,10 +24,15 @@
   },
   "homepage": "https://github.com/idolize/redux-requests#readme",
   "scripts": {
-    "prepublish": "babel index.js --out-dir lib"
+    "prepublish": "babel index.js --out-dir lib",
+    "test": "mocha --compilers js:babel/register test"
   },
   "dependencies": {},
   "devDependencies": {
-    "babel": "^5.8.21"
+    "babel": "^5.8.21",
+    "chai": "^3.2.0",
+    "chai-as-promised": "^5.1.0",
+    "es6-promise": "^3.0.2",
+    "mocha": "^2.2.5"
   }
 }
