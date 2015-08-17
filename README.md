@@ -5,7 +5,7 @@ Manages in-flight requests with a [Redux](https://github.com/gaearon/redux) [red
 
 `npm install --save redux-requests`
 
-[Live Example!](https://idolize.github.io/redux-requests)
+**[Live Example!](https://idolize.github.io/redux-requests)**
 
 ## Avoiding the issue of multiple requests
 
