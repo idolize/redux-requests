@@ -219,6 +219,15 @@ Returns a middleware function to pass to `applyMiddleware`. Optionally pass a `s
 
 Ex: `applyMiddleware(createRequestMiddleware(state => state.pendingHttpRequests))(createStore)`
 
+### `attemptRequest(url, actions, makeRequest, dispatch)`
+
+Helper function to reduce boilerplate when issuing a request, while still allowing full control over the way in which the request is made/handled.
+
+- `url` is the unique URL for this request.
+- `actions` should be an object with `begin`, `success`, and `failure` methods; each of which return an Action object (but do not need to include the `meta.httpRequest` information, as that will be added automatically).
+- `makeRequest` should return a `Promise` (how you make/handle the request is up to you).
+- `dispatch` is function called when an Action is triggered (typically this will be the standard Redux store's `dispatch` method).
+
 
 ## Credits
 
