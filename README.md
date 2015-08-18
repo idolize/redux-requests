@@ -25,7 +25,7 @@ As a result, you can use the *very same naïve approach outlined earlier with ha
 
 ## Simple example
 
-For each request: just specify a function that makes the request (should return a `Promise`), Action objects to dispatch depending on the outcome of the request, and register the `createRequestMiddleware` middleware and the `requestsReducer` reducer as part of your Redux configuration.
+Just specify a function that makes the request (should return a `Promise`), Action objects to dispatch depending on the outcome of the request, and register the `createRequestMiddleware` middleware and the `requestsReducer` reducer as part of your Redux configuration. That's it.
 
 ```js
 import { attemptRequest, requestsReducer, createRequestMiddleware } from 'redux-requests';
