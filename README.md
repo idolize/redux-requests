@@ -9,7 +9,7 @@ Manages in-flight requests with a [Redux](https://github.com/gaearon/redux) [red
 
 ## Avoiding the issue of multiple requests
 
-Say your application has two views for the same set of data, and this data has not yet been fetched. A naïve approach would be to create an [Action Creator](https://gaearon.github.io/redux/docs/basics/Actions.html) which fetches the data from an HTTP API endpoint, and then have both of these views trigger this action as soon as they are rendered (`componentWillMount` in React terms).
+Say your application has two views for the same set of data, and this data has not yet been fetched. A naïve approach to fetch this data would be to trigger an [Action Creator](https://gaearon.github.io/redux/docs/basics/Actions.html), which fetches the data from an HTTP API endpoint, in both of the views as soon as they render (`componentWillMount` in React terms).
 
 The problem with this approach is that **you end up with two identical HTTP requests when you only need one**! You waste bandwidth doing this, and you may also waste render cycles as the [Store](https://gaearon.github.io/redux/docs/basics/Store.html) updates twice as a result of handling both identical responses.
 
@@ -69,13 +69,13 @@ let store = createStoreWithMiddleware(combineReducers({ requestsReducer, githubR
 
 ## What's going on: before and after
 
-The `attemptRequest` function is actually just a simple helper (and is completely optional). All it does is the following:
+The `attemptRequest` function is actually just a simple helper (and is completely optional). All it does is:
 
 1. Add `meta.httpRequest` fields to your Action objects
   - `meta.httpRequest.url` is required, and will be used as the unique identifier for the request
   - `meta.httpRequest.done` is a boolean indiecating if this action corresponds to a beginning or ending part of the request sequence
-    - Typically a successful response Action, in addition to a failed response Action with an error, will both have `meta.httpRequest.done = true`
-2. Check if the `dispatch` for your initial request Action was cancelled (`dispatch` will return `undefined`), and if so do not issue your request
+    - Typically a successful response Action and a failed response Action will both have `meta.httpRequest.done = true`
+2. Check if the `dispatch` for your initial request Action was cancelled (`dispatch` will return `undefined`), and if so, prevent issuing the request
 
 #### Original, naïve code (without redux-requests library):
 
