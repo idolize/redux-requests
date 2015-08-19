@@ -36,26 +36,26 @@ function loadRepos(userId) {
     const url = `https://api.github.com/users/${userId}/repos`;
 
     attemptRequest(url, {
-      begin: () => {
+      begin: () => ({
         type: 'LOAD_REPOS',
         payload: {
           userId
         }
-      },
-      success: response => {
+      }),
+      success: response => ({
         type: 'LOAD_REPOS',
         payload: {
           userId,
           response
         }
-      },
-      failure: error => {
+      }),
+      failure: error => ({
         type: 'LOAD_REPOS',
         error,
         payload: {
           userId
         }
-      }
+      })
     }, () => fetch(url)
       .then(checkStatus)
       .then(parseJSON)
