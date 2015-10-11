@@ -2,7 +2,7 @@
  * Reducer function to handle pending requests.
  * @param  {Object} state  Existing state object.
  * @param  {Object} action Incoming action:
- *                         - Ations with the meta.httpRequest property are examined.
+ *                         - Actions with the meta.httpRequest property are examined.
  *                         - The meta.httpRequest.url property is added or removed
  *                           from the current state depending on if the meta.httpRequest.done
  *                           property is set.

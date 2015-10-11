@@ -35,6 +35,10 @@ function loadRepos(userId) {
   return function (dispatch, getState) {
     const url = `https://api.github.com/users/${userId}/repos`;
 
+    // The `url` param sent to attemptRequest isn't used for anything request related.
+    // It's used as a hash key to keep track of duplicate requests.
+    // If you're sending a POST request, unique data in headers, etc
+    // append any additional identifying information to the `url` string and redux-requests will de-dupe
     attemptRequest(url, {
       begin: () => ({
         type: 'LOAD_REPOS',
@@ -73,7 +77,7 @@ The `attemptRequest` function is actually just a simple helper (and is completel
 
 1. Add `meta.httpRequest` fields to your Action objects
   - `meta.httpRequest.url` is required, and will be used as the unique identifier for the request
-  - `meta.httpRequest.done` is a boolean indiecating if this action corresponds to a beginning or ending part of the request sequence
+  - `meta.httpRequest.done` is a boolean indicating if this action corresponds to a beginning or ending part of the request sequence
     - Typically a successful response Action and a failed response Action will both have `meta.httpRequest.done = true`
 2. Check if the `dispatch` for your initial request Action was cancelled (`dispatch` will return `undefined`), and if so, prevent issuing the request
 
